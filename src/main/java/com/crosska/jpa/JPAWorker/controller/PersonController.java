@@ -76,15 +76,13 @@ public class PersonController {
     public ResponseEntity<?> updatePerson(@RequestBody Person person, @PathVariable long id) {
         if (person != null) {
             if (personService.findById(id) != null) {
-                Person updatedPerson = personService.savePerson(person, id);
-                if (updatedPerson != null) {
-                    return ResponseEntity.ok(updatedPerson);
-                }
+                return ResponseEntity.ok(personService.savePerson(person, id));
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Person not found");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
+        } else {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
-        return ResponseEntity.badRequest().body(null);
     }
 
 }

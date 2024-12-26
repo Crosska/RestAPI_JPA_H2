@@ -3,12 +3,17 @@ package com.crosska.jpa.JPAWorker.entity;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "persons")
 public class Person {
 
     @Id
     @Column(unique=true, nullable=false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "banks_id", nullable = false) // Связь с Bank через колонку bank_id
+    private Bank bank;
 
     @Column(nullable = false)
     private String name;
